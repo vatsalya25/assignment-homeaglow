@@ -9,6 +9,7 @@ async function verifyToken() {
     return true;
   } catch (error) {
     console.error("Token verification failed:", error.response.data);
+    // window.location = "/login";
     return false;
   }
 }

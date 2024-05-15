@@ -12,7 +12,7 @@ function ChatList() {
     const fetchChats = async () => {
       try {
         const response = await axiosInstance.get("cp/conversations/");
-        console.log(response.data);
+        console.log("chat list: ", response.data);
         setChats(response.data);
       } catch (error) {
         console.error("Failed to fetch chats", error.response);
@@ -37,7 +37,7 @@ function ChatList() {
         {chats?.map((chat) => (
           <div
             key={chat.id}
-            className="flex items-start space-x-4 max-w-full mb-2 p-4 cursor-pointer hover:bg-slate-200 rounded-lg border-b border-gray-200"
+            className="flex items-start space-x-4 max-w-full py-6 px-4 cursor-pointer hover:bg-slate-200 rounded border-b border-gray-200"
             onClick={() => routeToChat(chat.id, chat.firstName, chat.lastName)}
           >
             <UilUserSquare size={38} />

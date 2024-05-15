@@ -8,13 +8,7 @@ function AuthRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        isLoggedIn ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
-        )
+        isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

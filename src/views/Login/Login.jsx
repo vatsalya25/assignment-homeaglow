@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 // import useLocalStorage from "../../hooks/useLocalStorage";
 import axios from "axios";
 
-function Login() {
+function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -34,6 +35,7 @@ function Login() {
       setError(null);
       localStorage.setItem("accessToken", response.data.access);
       localStorage.setItem("refreshToken", response.data.refresh);
+      onLogin();
       history.push("/chats");
     } catch (error) {
       console.error("Login error: ", JSON.stringify(error, null, 2));
@@ -83,5 +85,9 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
 
 export default Login;

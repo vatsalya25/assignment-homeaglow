@@ -21,6 +21,7 @@ function App() {
     const initializeAuth = async () => {
       const isValidToken = await verifyToken();
       if (isValidToken) {
+        // Not sure what to use this userInfo for
         await fetchUserInfo();
         setIsLoggedIn(true);
       } else {
@@ -35,15 +36,23 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          {isLoggedIn ? <Redirect to="/chats" /> : <Login />}
+          {isLoggedIn ? (
+            <Redirect to="/chats" />
+          ) : (
+            <Login onLogin={() => setIsLoggedIn(true)} />
+          )}
         </Route>
         <Route path="/login">
-          {isLoggedIn ? <Redirect to="/chats" /> : <Login />}
+          {isLoggedIn ? (
+            <Redirect to="/chats" />
+          ) : (
+            <Login onLogin={() => setIsLoggedIn(true)} />
+          )}
         </Route>
 
         {isLoggedIn ? (
           <AuthRoute path="/chats">
-            <ChatLayout>
+            <ChatLayout onLogout={() => setIsLoggedIn(false)}>
               <Switch>
                 <Route exact path="/chats" component={ChatList} />
                 <Route path="/chats/:customerId" component={Chat} />
